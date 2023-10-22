@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sistema de Inventario FSHAMA</title>
+    <title>ERP | Ferretería Shama</title>
+
+    <link rel="icon" href="assets\img\icon.svg" type="image/x-icon">
+
     <!-- Estilos CSS, iconos, etc -->
     <link rel="stylesheet"
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
@@ -23,6 +26,6 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning">
         <a class="navbar-brand" href="index.php"><img style="max-width: 110px;padding:5px;"
-                src="https://fshama.netlify.app/media/logo%202.svg" alt="ferreteria shama"></a>
+                src="assets\img\fshama.svg" alt="ferreteria shama"></a>
     </nav>
     <!-- Fin Navbar -->
