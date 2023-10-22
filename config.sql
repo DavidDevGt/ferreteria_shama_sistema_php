@@ -400,3 +400,33 @@ CREATE TABLE almacenes (
     capacidad_actual DECIMAL(10, 2) DEFAULT 0,
     active TINYINT(1) DEFAULT 1
 );
+
+-- Cambios opcionales
+ALTER TABLE usuarios
+    MODIFY fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    MODIFY ultimo_login DATETIME;
+
+ALTER TABLE sesiones
+    MODIFY fecha_inicio DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    MODIFY fecha_expiracion DATETIME NOT NULL;
+
+ALTER TABLE intentos_login
+    MODIFY fecha_intentos DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+ALTER TABLE proveedores
+    MODIFY fecha_registro DATETIME;
+
+ALTER TABLE productos
+    MODIFY fecha_creacion DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    MODIFY fecha_modificacion DATETIME;
+
+ALTER TABLE clientes
+    MODIFY fecha_registro DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP;
+
+-- Índices opcionales para mejorar la velocidad de consultas
+CREATE INDEX idx_username ON usuarios(username);
+CREATE INDEX idx_email ON usuarios(email);
+CREATE INDEX idx_email_prov ON proveedores(email);
+CREATE INDEX idx_email_cli ON clientes(email);
+CREATE INDEX idx_nit_cli ON clientes(nit);
+CREATE INDEX idx_producto_codigo ON productos(codigo);
