@@ -2,32 +2,6 @@
 CREATE DATABASE IF NOT EXISTS ferreteria_shama;
 USE ferreteria_shama;
 
--- Tabla de categorías
-CREATE TABLE categorias (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL UNIQUE,
-    descripcion TEXT NOT NULL,
-    active TINYINT(1) DEFAULT 1
-);
-
--- Tabla de proveedores
-CREATE TABLE proveedores (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL,
-    direccion TEXT NOT NULL,
-    telefono VARCHAR(20) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE,
-    active TINYINT(1) DEFAULT 1
-);
-
--- Tabla de marcas de productos
-CREATE TABLE marcas (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    nombre VARCHAR(255) NOT NULL UNIQUE,
-    descripcion TEXT,
-    active TINYINT(1) DEFAULT 1
-);
-
 -- Tabla de roles de empleados
 CREATE TABLE roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -85,14 +59,85 @@ CREATE TABLE intentos_login (
     FOREIGN KEY (usuario_id) REFERENCES usuarios(id)
 );
 
--- Tabla de productos
-CREATE TABLE productos (
+-- Tabla de categorías
+CREATE TABLE categorias (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL UNIQUE,
+    descripcion TEXT NOT NULL,
+    active TINYINT(1) DEFAULT 1
+);
+
+-- Tabla de proveedores
+CREATE TABLE proveedores (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL,
+    direccion TEXT NOT NULL,
+    telefono VARCHAR(20) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE,
+    nit VARCHAR(20),
+    fecha_registro DATE,
+    dias_credito INT DEFAULT 0,
+    nombre_vendedor VARCHAR(255),
+    active TINYINT(1) DEFAULT 1
+);
+
+-- Tabla de facturas de proveedores
+CREATE TABLE facturas_proveedor (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    proveedor_id INT,
+    numero_factura VARCHAR(50) NOT NULL,
+    fecha_factura DATE NOT NULL,
+    monto_total DECIMAL(10, 2) NOT NULL,
+    saldo_pendiente DECIMAL(10, 2) NOT NULL,
+    CONSTRAINT fk_proveedor FOREIGN KEY (proveedor_id) REFERENCES proveedores (id)
+);
+
+-- Detalles de facturas de proveedores
+CREATE TABLE facturas_proveedor_d (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    factura_proveedor_id INT NOT NULL,
+    producto_id INT NOT NULL,
+    cantidad INT NOT NULL,
+    precio_compra DECIMAL(10,2) NOT NULL,
+    marca_id INT,
+    FOREIGN KEY (factura_proveedor_id) REFERENCES facturas_proveedor(id),
+    FOREIGN KEY (producto_id) REFERENCES productos(id),
+    FOREIGN KEY (marca_id) REFERENCES marcas(id)
+);
+
+-- Tabla para gestionar pagos a proveedores
+CREATE TABLE pagos_proveedores (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    proveedor_id INT NOT NULL,
+    factura_proveedor_id INT NOT NULL,
+    monto_pagado DECIMAL(10, 2) NOT NULL,
+    fecha_pago DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    forma_de_pago_id INT NOT NULL,
+    FOREIGN KEY (proveedor_id) REFERENCES proveedores(id),
+    FOREIGN KEY (factura_proveedor_id) REFERENCES facturas_proveedor(id),
+    FOREIGN KEY (forma_de_pago_id) REFERENCES forma_de_pago(id)
+);
+
+-- Tabla de marcas de productos
+CREATE TABLE marcas (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(255) NOT NULL UNIQUE,
+    descripcion TEXT,
+    active TINYINT(1) DEFAULT 1
+);
+
+-- Tabla de productos con campos adicionales
+CREATE TABLE productos (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    codigo VARCHAR(10) UNIQUE,
+    nombre VARCHAR(255) NOT NULL,
     descripcion TEXT NOT NULL,
+    imagen_url VARCHAR(500),
     precio_compra DECIMAL(10,2) NOT NULL,
     precio_venta DECIMAL(10,2) NOT NULL,
     stock INT NOT NULL DEFAULT 0,
+    fecha_creacion DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    fecha_modificacion DATE,
     categoria_id INT NOT NULL,
     proveedor_id INT NOT NULL,
     marca_id INT,
@@ -197,5 +242,64 @@ CREATE TABLE descuentos (
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE NOT NULL,
     active TINYINT(1) DEFAULT 1,
+    FOREIGN KEY (producto_id) REFERENCES productos(id)
+);
+
+-- Tabla para gestionar métodos de pago
+CREATE TABLE forma_de_pago (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(50) NOT NULL,
+    descripcion TEXT
+);
+
+-- Tabla de movimientos de inventario
+CREATE TABLE movimientos_inventario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT NOT NULL,
+    cantidad INT NOT NULL,
+    tipo ENUM('Ingreso', 'Salida', 'Ajuste') NOT NULL,
+    fecha_movimiento DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    motivo TEXT NOT NULL,
+    FOREIGN KEY (producto_id) REFERENCES productos(id)
+);
+
+-- Tabla para gestionar ingresos de inventario
+CREATE TABLE ingreso_inventario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT NOT NULL,
+    cantidad INT NOT NULL,
+    fecha_ingreso DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    orden_compra_id INT,
+    FOREIGN KEY (producto_id) REFERENCES productos(id),
+    FOREIGN KEY (orden_compra_id) REFERENCES orden_compra(id)
+);
+
+-- Tabla para gestionar salidas de inventario
+CREATE TABLE salida_inventario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT NOT NULL,
+    cantidad INT NOT NULL,
+    fecha_salida DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    motivo TEXT NOT NULL,
+    FOREIGN KEY (producto_id) REFERENCES productos(id)
+);
+
+-- Tabla para realizar ajustes de inventario
+CREATE TABLE ajustes_inventario (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT NOT NULL,
+    cantidad_ajuste INT NOT NULL,
+    fecha_ajuste DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    motivo TEXT NOT NULL,
+    FOREIGN KEY (producto_id) REFERENCES productos(id)
+);
+
+-- Tabla de historial de precios
+CREATE TABLE historial_precios (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    producto_id INT NOT NULL,
+    precio_compra_anterior DECIMAL(10,2),
+    precio_venta_anterior DECIMAL(10,2),
+    fecha_cambio DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (producto_id) REFERENCES productos(id)
 );
