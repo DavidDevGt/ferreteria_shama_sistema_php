@@ -6,7 +6,8 @@ USE ferreteria_shama;
 CREATE TABLE categorias (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL UNIQUE,
-    descripcion TEXT NOT NULL
+    descripcion TEXT NOT NULL,
+    active TINYINT(1) DEFAULT 1
 );
 
 -- Tabla de proveedores
@@ -15,28 +16,32 @@ CREATE TABLE proveedores (
     nombre VARCHAR(255) NOT NULL,
     direccion TEXT NOT NULL,
     telefono VARCHAR(20) NOT NULL,
-    email VARCHAR(255) NOT NULL UNIQUE
+    email VARCHAR(255) NOT NULL UNIQUE,
+    active TINYINT(1) DEFAULT 1
 );
 
 -- Tabla de marcas de productos
 CREATE TABLE marcas (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL UNIQUE,
-    descripcion TEXT
+    descripcion TEXT,
+    active TINYINT(1) DEFAULT 1
 );
 
 -- Tabla de roles de empleados
 CREATE TABLE roles (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL UNIQUE,
-    descripcion TEXT
+    descripcion TEXT,
+    active TINYINT(1) DEFAULT 1
 );
 
 -- Tabla de permisos
 CREATE TABLE permisos (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nombre VARCHAR(255) NOT NULL UNIQUE,
-    descripcion TEXT
+    descripcion TEXT,
+    active TINYINT(1) DEFAULT 1
 );
 
 -- Tabla intermedia entre roles y permisos
@@ -57,6 +62,7 @@ CREATE TABLE usuarios (
     fecha_registro DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
     ultimo_login DATE,
     rol_id INT,
+    active TINYINT(1) DEFAULT 1,
     FOREIGN KEY (rol_id) REFERENCES roles(id)
 );
 
@@ -90,6 +96,7 @@ CREATE TABLE productos (
     categoria_id INT NOT NULL,
     proveedor_id INT NOT NULL,
     marca_id INT,
+    active TINYINT(1) DEFAULT 1,
     FOREIGN KEY (categoria_id) REFERENCES categorias(id),
     FOREIGN KEY (proveedor_id) REFERENCES proveedores(id),
     FOREIGN KEY (marca_id) REFERENCES marcas(id)
@@ -103,7 +110,8 @@ CREATE TABLE clientes (
     direccion TEXT NOT NULL,
     telefono VARCHAR(20) NOT NULL,
     email VARCHAR(255) UNIQUE,
-    fecha_registro DATE NOT NULL DEFAULT CURRENT_TIMESTAMP
+    fecha_registro DATE NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    active TINYINT(1) DEFAULT 1
 );
 
 -- Tabla de empleados
@@ -116,6 +124,7 @@ CREATE TABLE empleados (
     email VARCHAR(255) NOT NULL UNIQUE,
     fecha_contratacion DATE NOT NULL,
     rol_id INT,
+    active TINYINT(1) DEFAULT 1,
     FOREIGN KEY (rol_id) REFERENCES roles(id)
 );
 
@@ -125,6 +134,7 @@ CREATE TABLE pedido (
     cliente_id INT NOT NULL,
     fecha_pedido DATE NOT NULL,
     estado ENUM('Pendiente', 'Completado', 'Cancelado') NOT NULL,
+    active TINYINT(1) DEFAULT 1,
     FOREIGN KEY (cliente_id) REFERENCES clientes(id)
 );
 
@@ -186,5 +196,6 @@ CREATE TABLE descuentos (
     porcentaje DECIMAL(5,2) NOT NULL,
     fecha_inicio DATE NOT NULL,
     fecha_fin DATE NOT NULL,
+    active TINYINT(1) DEFAULT 1,
     FOREIGN KEY (producto_id) REFERENCES productos(id)
 );
