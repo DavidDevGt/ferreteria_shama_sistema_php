@@ -1,20 +1,32 @@
 <?php
 session_start();
 
+define('RUTA_CATEGORIAS', 'modulos/categorias/index.php');
+define('RUTA_CLIENTES', 'modulos/clientes/index.php');
+define('RUTA_EMPLEADOS', 'modulos/empleados/index.php');
+define('RUTA_FACTURAS', 'modulos/facturas/index.php');
+define('RUTA_ORDENES_COMPRA', 'modulos/ordenes_compra/index.php');
+define('RUTA_PEDIDOS', 'modulos/pedidos/index.php');
+define('RUTA_PRODUCTOS', 'modulos/productos/index.php');
+define('RUTA_PROVEEDORES', 'modulos/proveedores/index.php');
+define('RUTA_REPORTES', 'modulos/reportes/index.php');
+define('RUTA_LOGIN', 'modulos/autenticacion/login.php');
+define('RUTA_REGISTRO', 'modulos/autenticacion/registro.php');
+define('RUTA_OLA', 'modulos/autenticacion/ajax.php');
+
 $rutasPermitidas = [
-    'categorias' => 'modulos/categorias/index.php',
-    'clientes' => 'modulos/clientes/index.php',
-    'empleados' => 'modulos/empleados/index.php',
-    'facturas' => 'modulos/facturas/index.php',
-    'ordenes_compra' => 'modulos/ordenes_compra/index.php',
-    'pedidos' => 'modulos/pedidos/index.php',
-    'productos' => 'modulos/productos/index.php',
-    'proveedores' => 'modulos/proveedores/index.php',
-    'reportes' => 'modulos/reportes/index.php',
-    'login' => 'modulos/autenticacion/login.php',
-    'registro' => 'modulos/autenticacion/registro.php',
-    'ola' => 'modulos/autenticacion/ajax.php',
-    //... otras rutas
+    'categorias' => RUTA_CATEGORIAS,
+    'clientes' => RUTA_CLIENTES,
+    'empleados' => RUTA_EMPLEADOS,
+    'facturas' => RUTA_FACTURAS,
+    'ordenes_compra' => RUTA_ORDENES_COMPRA,
+    'pedidos' => RUTA_PEDIDOS,
+    'productos' => RUTA_PRODUCTOS,
+    'proveedores' => RUTA_PROVEEDORES,
+    'reportes' => RUTA_REPORTES,
+    'login' => RUTA_LOGIN,
+    'registro' => RUTA_REGISTRO,
+    'ola' => RUTA_OLA,
 ];
 
 // Obtener el módulo
