@@ -13,6 +13,7 @@ $rutasPermitidas = [
     'reportes' => 'modulos/reportes/index.php',
     'login' => 'modulos/autenticacion/login.php',
     'registro' => 'modulos/autenticacion/registro.php',
+    'ola' => 'modulos/autenticacion/ajax.php',
     //... otras rutas
 ];
 
@@ -20,7 +21,7 @@ $rutasPermitidas = [
 $modulo = $_GET['modulo'] ?? null;
 
 // Verificación de autenticación
-if (!isset($_SESSION['usuario']) && !in_array($modulo, ['login', 'registro'])) {
+if (!isset($_SESSION['usuario']) && !in_array($modulo, ['login', 'registro', 'ola'])) {
     header('Location: index.php?modulo=login');
     exit;
 }
