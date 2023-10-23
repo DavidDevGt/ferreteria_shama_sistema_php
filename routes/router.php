@@ -12,7 +12,6 @@ define('RUTA_PROVEEDORES', 'modulos/proveedores/index.php');
 define('RUTA_REPORTES', 'modulos/reportes/index.php');
 define('RUTA_LOGIN', 'modulos/autenticacion/login.php');
 define('RUTA_REGISTRO', 'modulos/autenticacion/registro.php');
-define('RUTA_OLA', 'modulos/autenticacion/ajax.php');
 
 $rutasPermitidas = [
     'categorias' => RUTA_CATEGORIAS,
@@ -26,7 +25,6 @@ $rutasPermitidas = [
     'reportes' => RUTA_REPORTES,
     'login' => RUTA_LOGIN,
     'registro' => RUTA_REGISTRO,
-    'ola' => RUTA_OLA,
 ];
 
 // Obtener el módulo
