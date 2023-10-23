@@ -100,7 +100,7 @@ function verificarTokenCSRF($token) {
 
 /**
  * Función para convertir una fecha al formato español.
- *
+ * 
  * @param string $fecha Fecha en formato "Y-m-d" o "Y-m-d H:i:s".
  * @return string Fecha en formato "d-m-Y" o "d-m-Y H:i:s".
  */
@@ -134,22 +134,6 @@ function redireccionar($url) {
 }
 
 /**
- * Función para enviar un correo electrónico.
- *
- * @param string $para Email del destinatario.
- * @param string $asunto Asunto del correo.
- * @param string $mensaje Mensaje del correo.
- * @return bool True si se envió correctamente, False en caso contrario.
- */
-function enviarCorreo($para, $asunto, $mensaje) {
-    $headers = "From: noreply@tudominio.com\r\n";
-    $headers .= "Reply-To: soporte@tudominio.com\r\n";
-    $headers .= "Content-type: text/html\r\n";
-
-    return mail($para, $asunto, $mensaje, $headers);
-}
-
-/**
  * Función para limpiar un string (evitar inyecciones SQL y XSS).
  *
  * @param string $dato El dato a limpiar.
@@ -161,3 +145,30 @@ function limpiarDato($dato) {
     return $dato;
 }
 
+/**
+ * Función para generar un código de producto único con el formato ABCD-123.
+ *
+ * @param int $longitud La longitud del código, por defecto es 7.
+ * @return string El código generado.
+ */
+function generarCodigoProducto($longitud = 7) {
+    $codigo = '';
+    $caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+    $numCaracteres = strlen($caracteres);
+
+    // Verificar si la longitud solicitada es válida
+    if ($longitud <= 0 || $longitud > $numCaracteres) {
+        throw new Exception("Longitud inválida");
+    }
+
+    // Generar los primeros 4 caracteres del código
+    $caracteresAleatorios = array_rand(str_split($caracteres), 4);
+    foreach ($caracteresAleatorios as $indice) {
+        $codigo .= $caracteres[$indice];
+    }
+
+    // Generar los últimos 3 dígitos del código
+    $codigo .= '-' . rand(100, 999);
+
+    return $codigo;
+}
