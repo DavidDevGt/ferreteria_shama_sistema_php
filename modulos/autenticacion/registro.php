@@ -8,7 +8,7 @@
                     <!-- Logotipo y texto a la izquierda -->
                     <div class="d-flex flex-column justify-content-center align-items-center w-50">
                         <img src="assets\img\fshama.svg" class="img-fluid" style="max-width: 300px;" alt="ferreteria shama">
-                        <h2 class="text-center mt-3">Ferretería Shama</h2>
+                        <h2 class="text-center mt-3">Ferretería Shama ERP</h2>
                     </div>
 
                     <!-- Formulario de registro a la derecha -->
