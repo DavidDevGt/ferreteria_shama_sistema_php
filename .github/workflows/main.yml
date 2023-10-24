@@ -12,9 +12,10 @@ jobs:
     - name: Get latest code
       uses: actions/checkout@v3  # Actualizado a v3
     
-    - name: Sync files
-      uses: SamKirkland/FTP-Deploy-Action@4.3.4  # Actualizado a v4.3.4
+    - name: FTP-Deploy-Action
+      uses: SamKirkland/FTP-Deploy-Action@4.0.0
       with:
-        server: ftp://ftpupload.net/  # Tu servidor FTP
-        username: if0_35291493  # Tu nombre de usuario FTP
-        password: ${{ secrets.FTP_PASSWORD }}  # Tu contraseña FTP almacenada como un secreto
+        ftp-server: ftp://ftpupload.net/
+        ftp-username: if0_35291493
+        ftp-password: ${{ secrets.FTP_PASSWORD }}
+
