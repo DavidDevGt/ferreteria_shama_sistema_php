@@ -1,0 +1,20 @@
+name: FTP-Deploy-Action
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    name: Deploy
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2.1.0
+
+    - name: FTP-Deploy-Action
+      uses: SamKirkland/FTP-Deploy-Action@3.1.1
+      with:
+        ftp-server: ftp://ftpupload.net/
+        ftp-username: if0_35291493
+        ftp-password: ${{ secrets.FTP_PASSWORD }}
