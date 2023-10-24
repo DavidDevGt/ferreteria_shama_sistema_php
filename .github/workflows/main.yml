@@ -1,20 +1,20 @@
-name: FTP-Deploy-Action
+name: Deploy website on push
 on:
   push:
     branches:
-      - main
+      - main  # Asegúrate de que esta es la rama correcta
 
 jobs:
-  build:
+  web-deploy:
     name: Deploy
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2.1.0
-
-    - name: FTP-Deploy-Action
-      uses: SamKirkland/FTP-Deploy-Action@3.1.1
+    - name: Get latest code
+      uses: actions/checkout@v3  # Actualizado a v3
+    
+    - name: Sync files
+      uses: SamKirkland/FTP-Deploy-Action@4.3.4  # Actualizado a v4.3.4
       with:
-        ftp-server: ftp://ftpupload.net/
-        ftp-username: if0_35291493
-        ftp-password: ${{ secrets.FTP_PASSWORD }}
+        server: ftp://ftpupload.net/  # Tu servidor FTP
+        username: if0_35291493  # Tu nombre de usuario FTP
+        password: ${{ secrets.FTP_PASSWORD }}  # Tu contraseña FTP almacenada como un secreto
