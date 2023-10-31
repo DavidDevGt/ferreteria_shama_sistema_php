@@ -1,7 +1,6 @@
 $(document).ready(function() {
-    // Capturar el evento submit del formulario
     $("#formRegistro").submit(function(e) {
-        e.preventDefault();  // Evita que el formulario se envíe de la manera predeterminada
+        e.preventDefault();
 
         // Recopila los datos del formulario
         let datos = {
@@ -12,9 +11,15 @@ $(document).ready(function() {
             // Puedes agregar el rol_id aquí si es necesario
         };
 
+        // Obtener la URL base actual
+        let baseUrl = window.location.href;
+
+        // Construir la URL completa para la solicitud AJAX
+        let ajaxUrl = 'modulos/autenticacion/ajax.php';
+
         // Realiza la petición AJAX
         $.ajax({
-            url: 'ajax.php',
+            url: ajaxUrl,
             type: 'POST',
             data: datos,
             dataType: 'json',

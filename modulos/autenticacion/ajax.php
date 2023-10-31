@@ -1,10 +1,11 @@
 <?php
-require 'config\database.php';
-require 'functions\funciones_backend.php';
+require '../../config/database.php';
+require '../../functions/funciones_backend.php';
 
 // Funciones y código para el registro de usuario
 
-function registrarUsuario($username, $password, $email, $rol_id) {
+function registrarUsuario($username, $password, $email, $rol_id)
+{
     global $conexion; // Usar la conexión desde el archivo de conexión
 
     // Hashear la contraseña para mayor seguridad
@@ -39,11 +40,13 @@ if (isset($_POST['action'])) {
                 exit;
             }
 
-            // Intentar registrar al usuario
+            // Registrar al usuario
             $result = registrarUsuario($username, $password, $email, $rol_id);
 
-            // Devolver una respuesta según el resultado
+            // Iniciar una sesión si el registro es exitoso
             if ($result) {
+                session_start();
+                $_SESSION['usuario'] = $username; // Guardar el nombre de usuario en la sesión, puedes agregar más datos si es necesario
                 echo json_encode(['status' => 'success', 'message' => 'Registro exitoso.']);
             } else {
                 echo json_encode(['status' => 'error', 'message' => 'Error al registrar.']);
