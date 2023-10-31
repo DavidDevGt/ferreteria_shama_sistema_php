@@ -25,10 +25,22 @@ $(document).ready(function() {
             dataType: 'json',
             success: function(response) {
                 if (response.status === 'success') {
-                    alert(response.message);
+                    Swal.fire({
+                        title: 'Success',
+                        text: response.message,
+                        icon: 'success',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
                     // Redirecciona o realiza cualquier otra acción después de un registro exitoso
                 } else {
-                    alert(response.message);
+                    Swal.fire({
+                        title: 'Error',
+                        text: response.message,
+                        icon: 'error',
+                        timer: 1000,
+                        showConfirmButton: false
+                    });
                 }
             },
             error: function(xhr, status, error) {

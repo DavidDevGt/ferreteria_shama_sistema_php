@@ -6,21 +6,43 @@ require '../../functions/funciones_backend.php';
 
 function registrarUsuario($username, $password, $email, $rol_id)
 {
-    global $conexion; // Usar la conexión desde el archivo de conexión
+    global $conexion;
 
-    // Hashear la contraseña para mayor seguridad
-    $passwordHash = encriptarContrasena($password);
-
-    // Utilizando la función dbQueryPreparada para hacer la inserción
-    $query = "INSERT INTO usuarios (username, password, email, rol_id) VALUES (?, ?, ?, ?)";
-    $params = [$username, $passwordHash, $email, $rol_id];
+    // Verificar si el correo o el nombre de usuario ya existen
+    $query = "SELECT username, email FROM usuarios WHERE username = ? OR email = ?";
+    $params = [$username, $email];
     $stmt = dbQueryPreparada($query, $params);
 
-    // Verificar si la inserción fue exitosa
-    if ($stmt && $stmt->affected_rows > 0) {
-        return true;
+    if ($stmt !== false) {
+        $stmt->execute();
+        $stmt->store_result();
+        $numRows = $stmt->num_rows;
+
+        if ($numRows > 0) {
+            return ['status' => 'error', 'message' => 'El correo o el nombre de usuario ya existen en la base de datos.'];
+        }
+
+        // Hashear la contraseña para mayor seguridad
+        $passwordHash = encriptarContrasena($password);
+
+        // Insertar el nuevo usuario
+        $insertQuery = "INSERT INTO usuarios (username, password, email, rol_id) VALUES (?, ?, ?, ?)";
+        $insertParams = [$username, $passwordHash, $email, $rol_id];
+        $insertStmt = dbQueryPreparada($insertQuery, $insertParams);
+
+        if ($insertStmt !== false) {
+            $insertStmt->execute();
+
+            if ($insertStmt->affected_rows > 0) {
+                return ['status' => 'success', 'message' => 'Registro exitoso.'];
+            } else {
+                return ['status' => 'error', 'message' => 'Error al registrar.'];
+            }
+        } else {
+            return ['status' => 'error', 'message' => 'Error en la base de datos al insertar el nuevo usuario.'];
+        }
     } else {
-        return false;
+        return ['status' => 'error', 'message' => 'Error en la base de datos al verificar la existencia del usuario.'];
     }
 }
 
