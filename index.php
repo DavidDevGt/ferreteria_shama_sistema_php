@@ -3,7 +3,13 @@
 include './includes/header.php';
 ?>
 
-<!-- Contenido -->
+<style>
+    body {
+        background-color: #f5f5f1;
+    }
+</style>
+
+<!-- Contenedor de la app -->
 <div class="container-fluid">
     <?php
     include 'routes/router.php';
@@ -11,9 +17,7 @@ include './includes/header.php';
 </div>
 
 <!-- Fin Contenido -->
-<script>
-    // Cualquier script que desees agregar
-</script>
+<script></script>
 
 <?php 
 // Inclusión del pie de página:

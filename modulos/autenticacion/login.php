@@ -1,6 +1,6 @@
     <div class="container-fluid">
         <div class="row justify-content-center align-items-center h-100">
-            <div class="col-lg-8 d-flex mt-5">
+            <div class="col-lg-8 d-flex mt-3">
 
                 <!-- Contenedor principal -->
                 <div class="d-flex w-100 bg-white p-5 rounded shadow-lg justify-content-between">
