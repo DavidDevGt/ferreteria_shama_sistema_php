@@ -181,6 +181,31 @@ CREATE TABLE
         descripcion TEXT
     );
 
+-- Departamentos
+CREATE TABLE
+    departamentos (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nombre VARCHAR(255) NOT NULL UNIQUE
+    );
+
+-- Municipios
+CREATE TABLE
+    municipios (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        departamento_id INT NOT NULL,
+        nombre VARCHAR(255) NOT NULL,
+        FOREIGN KEY (departamento_id) REFERENCES departamentos (id)
+    );
+
+-- Aldeas
+CREATE TABLE
+    aldeas (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        municipio_id INT NOT NULL,
+        nombre VARCHAR(255) NOT NULL,
+        FOREIGN KEY (municipio_id) REFERENCES municipios (id)
+    );
+
 -- Modificación de la tabla de clientes para usar tipo_cliente_id en lugar de ENUM
 CREATE TABLE
     clientes (
@@ -190,8 +215,9 @@ CREATE TABLE
         apellido VARCHAR(255) NOT NULL,
         direccion_facturacion TEXT NOT NULL,
         direccion_entrega TEXT NOT NULL,
-        ciudad VARCHAR(255),
-        departamento VARCHAR(255),
+        aldea_id INT, -- Referencia a la tabla de aldeas
+        municipio_id INT, -- Referencia a la tabla de municipios
+        departamento_id INT, -- Referencia a la tabla de departamentos
         pais VARCHAR(255) DEFAULT 'Guatemala',
         telefono VARCHAR(20),
         email VARCHAR(255) UNIQUE,
@@ -199,7 +225,10 @@ CREATE TABLE
         fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         active TINYINT (1) DEFAULT 1,
-        FOREIGN KEY (tipo_cliente_id) REFERENCES tipo_cliente (id)
+        FOREIGN KEY (tipo_cliente_id) REFERENCES tipo_cliente (id),
+        FOREIGN KEY (departamento_id) REFERENCES departamentos (id),
+        FOREIGN KEY (municipio_id) REFERENCES municipios (id),
+        FOREIGN KEY (aldea_id) REFERENCES aldeas (id)
     );
 
 -- Tabla de sucursales de clientes
