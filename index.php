@@ -1,5 +1,5 @@
-<?php 
-// Inclusión del encabezado:
+<?php
+// Inclusión del encabezado
 include './includes/header.php';
 ?>
 
@@ -12,14 +12,14 @@ include './includes/header.php';
 <!-- Contenedor de la app -->
 <div class="container-fluid">
     <?php
-    include 'routes/router.php';
+    require './routes/router.php';
     ?>
 </div>
 
 <!-- Fin Contenido -->
 <script></script>
 
-<?php 
-// Inclusión del pie de página:
+<?php
+// Inclusión del pie de página
 include './includes/footer.php';
 ?>
