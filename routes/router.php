@@ -7,6 +7,10 @@ $router->setBasePath('/fshama-erp');
 
 // Rutas
 
+$router->map('GET', '/', function () {
+    require __DIR__ . '/../modulos/inicio.php';
+});
+
 $router->map('GET', '/categorias', function () {
     require __DIR__ . '/../modulos/categorias/index.php';
 });
@@ -17,6 +21,14 @@ $router->map('GET', '/clientes', function () {
 
 $router->map('GET', '/empleados', function () {
     require __DIR__ . '/../modulos/empleados/index.php';
+});
+
+$router->map('GET', '/productos', function () {
+    require __DIR__ . '/../modulos/productos/index.php';
+});
+
+$router->map('GET', '/login', function () {
+    require __DIR__ . '/../modulos/autenticacion/login.php';
 });
 
 // Match de la ruta actual
