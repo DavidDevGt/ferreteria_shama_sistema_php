@@ -130,3 +130,28 @@ function obtenerValorInput(id) {
 function establecerValorInput(id, valor) {
     $("#" + id).val(valor);
 }
+
+//* NOTE: Validaciones
+// Validar si un campo de texto está vacío
+function validarCampoVacio(campoId) {
+    var campo = $("#" + campoId);
+    if (campo.val().trim() === "") {
+      campo.addClass("is-invalid");
+      return false;
+    } else {
+      campo.removeClass("is-invalid");
+      return true;
+    }
+  }
+  
+  // Limitar cantidad de caracteres de un textarea
+  function limitarCaracteres(textareaId, maxCaracteres) {
+    $("#" + textareaId).on("input", function () {
+      var texto = $(this).val();
+      if (texto.length > maxCaracteres) {
+        $(this).val(texto.substring(0, maxCaracteres));
+      }
+    });
+  }
+  
+  
