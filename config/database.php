@@ -173,25 +173,3 @@ function dbQueryPreparada($query, $params = []) {
     $stmt->execute();
     return $stmt;
 }
-
-/**
- * Obtiene un valor de $_POST y lo filtra.
- *
- * @param string $clave La clave del elemento en $_POST.
- * @param int $tipo El tipo de filtro a aplicar.
- * @return mixed El valor filtrado.
- */
-function obtenerPost($clave, $tipo = FILTER_SANITIZE_STRING) {
-    return filter_input(INPUT_POST, $clave, $tipo);
-}
-
-/**
- * Obtiene un valor de $_GET y lo filtra.
- *
- * @param string $clave La clave del elemento en $_GET.
- * @param int $tipo El tipo de filtro a aplicar.
- * @return mixed El valor filtrado.
- */
-function obtenerGet($clave, $tipo = FILTER_SANITIZE_STRING) {
-    return filter_input(INPUT_GET, $clave, $tipo);
-}
