@@ -611,3 +611,4 @@ FROM
     JOIN estado_pedido ep ON pe.estado_pedido_id = ep.id
 WHERE
     ep.estado = 'Pendiente';
+

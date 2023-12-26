@@ -1,7 +1,7 @@
 <?php
 // Parámetros de conexión a la base de datos
 $host = 'localhost';
-$db_name = 'ferreteria_shama';
+$db_name = 'fshama_sys';
 $username = 'root';
 $password = '';
 

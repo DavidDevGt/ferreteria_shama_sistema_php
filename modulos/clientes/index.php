@@ -4,12 +4,12 @@
     <div class="input-group mt-5">
         <input type="text" id="busquedaCliente" placeholder="Buscar Cliente..." class="form-control">
         <button class="btn btn-outline-secondary" type="button" id="buscarClienteBtn">
-            <i class="las la-search"></i> Buscar
+            <i class="las la-search"></i> Buscar Cliente
         </button>
     </div>
 
     <div class="table-responsive mt-3" id="tablaClientesActivos">
-        <table class="table table-bordered">
+        <table class="table table-bordered table-hover">
             <thead class="table-dark">
                 <tr>
                     <th>NIT</th>

@@ -13,20 +13,33 @@ $accion = $_POST['accion'] ?? $_GET['accion'] ?? '';
 
 switch ($accion) {
     case 'buscar':
-        $terminoBusqueda = $_POST['busqueda'] ?? '';
-        
-        $resultadosBusqueda = "Resultado";
+        $terminoBusqueda = dbEscape($_POST['busqueda'] ?? '');
 
-        echo json_encode($resultadosBusqueda);
+        // Aquí ejecutas la consulta para buscar clientes
+        $query = "SELECT * FROM clientes WHERE nombre LIKE '%$terminoBusqueda%' OR apellido LIKE '%$terminoBusqueda%'";
+        $resultados = dbQuery($query);
+        $clientes = dbFetchAll($resultados);
+
+        echo json_encode($clientes);
         break;
+
     case 'agregar':
         break;
+
     case 'editar':
         break;
+
     case 'eliminar':
         break;
-    case 'obtener':
+
+    case 'obtener_todos':
+        $query = "SELECT * FROM clientes WHERE active = 1";
+        $resultados = dbQuery($query);
+        $todos_los_clientes = dbFetchAll($resultados);
+
+        echo json_encode($todos_los_clientes);
         break;
+
     default:
         echo json_encode(['error' => 'Acción no reconocida']);
         break;
