@@ -1,4 +1,6 @@
 $(document).ready(function() {
+
+    console.log('Script cargado correctamente!!');
     $("#formRegistro").submit(function(e) {
         e.preventDefault();
 

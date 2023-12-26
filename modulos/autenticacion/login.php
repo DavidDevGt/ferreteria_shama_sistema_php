@@ -1,4 +1,3 @@
-    <div class="container-fluid">
         <div class="row justify-content-center align-items-center h-100">
             <div class="col-lg-8 d-flex mt-3">
 
@@ -14,7 +13,7 @@
                     <!-- Formulario de inicio de sesión a la derecha -->
                     <div class="w-50">
                         <h3 class="mb-4">Inicio de Sesión</h3>
-                        <form action="ajax.php" method="POST">
+                        <form id="loginForm">
                             <div class="mb-3">
                                 <label for="username" class="form-label">Usuario</label>
                                 <div class="input-group">
@@ -31,15 +30,10 @@
                             </div>
                             <button type="submit" class="btn btn-warning btn-block">Ingresar</button>
                         </form>
-                        <div class="mt-3">
-                            <a href="#">¿Olvidaste tu contraseña?</a><br>
-                            <a href="index.php?modulo=registro">¿No tienes cuenta? Regístrate aquí.</a>
-                        </div>
                     </div>
 
                 </div>
             </div>
         </div>
-    </div>
 
-    <script src="modulos\autenticacion\script.js"></script>
+        <script src="modulos\autenticacion\script.js"></script>
