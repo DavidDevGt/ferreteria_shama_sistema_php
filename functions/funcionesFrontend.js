@@ -155,3 +155,32 @@ function validarCampoVacio(campoId) {
   }
   
   
+  //* Advanced: Paginación en tablas dinámicas
+
+  /**
+ * Crea un componente de paginación y lo añade al elemento especificado.
+ * 
+ * @param {string} idContenedorPaginacion ID del elemento donde se colocará la paginación.
+ * @param {number} totalPaginas Número total de páginas.
+ * @param {number} paginaActual Página actual.
+ * @param {Function} callbackFunción que se llamará al cambiar de página.
+ */
+function crearPaginacion(idContenedorPaginacion, totalPaginas, paginaActual, callback) {
+    const contenedor = $('#' + idContenedorPaginacion);
+    contenedor.empty();
+
+    if (totalPaginas <= 1) return; // No mostrar paginación si solo hay una página
+
+    for (let i = 1; i <= totalPaginas; i++) {
+        const botonPagina = $(`<button class="btn btn-sm btn-outline-dark">${i}</button>`);
+        botonPagina.on('click', function() {
+            callback(i);
+        });
+
+        if (i === paginaActual) {
+            botonPagina.addClass('active');
+        }
+
+        contenedor.append(botonPagina);
+    }
+}

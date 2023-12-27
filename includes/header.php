@@ -21,6 +21,9 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="assets\js\bootstrap.bundle.min.js"></script>
     <script src="assets\js\moment.js"></script>
+
+    <!-- Scripts JS -->
+    <script src="functions\funcionesFrontend.js"></script>
 </head>
 
     <!-- Navbar -->

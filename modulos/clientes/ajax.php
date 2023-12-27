@@ -14,14 +14,16 @@ $accion = $_POST['accion'] ?? $_GET['accion'] ?? '';
 switch ($accion) {
     case 'buscar':
         $terminoBusqueda = dbEscape($_POST['busqueda'] ?? '');
-
-        // Aquí ejecutas la consulta para buscar clientes
+        $pagina = $_POST['pagina'] ?? 1;
+        $resultados_por_pagina = 10;    
+    
+        // Modifica tu consulta para incluir paginación
         $query = "SELECT * FROM clientes WHERE nombre LIKE '%$terminoBusqueda%' OR apellido LIKE '%$terminoBusqueda%'";
-        $resultados = dbQuery($query);
-        $clientes = dbFetchAll($resultados);
-
-        echo json_encode($clientes);
+        $resultados_format = paginarResultados($query, $pagina, $resultados_por_pagina);
+    
+        echo json_encode($resultados_format);
         break;
+    
 
     case 'agregar':
         break;
@@ -33,11 +35,13 @@ switch ($accion) {
         break;
 
     case 'obtener_todos':
-        $query = "SELECT * FROM clientes WHERE active = 1";
-        $resultados = dbQuery($query);
-        $todos_los_clientes = dbFetchAll($resultados);
+        $pagina = $_POST['pagina'] ?? 1;
+        $resultados_por_pagina = 10;
 
-        echo json_encode($todos_los_clientes);
+        $query = "SELECT * FROM clientes WHERE active = 1";
+        $resultados_format = paginarResultados($query, $pagina, $resultados_por_pagina);
+
+        echo json_encode($resultados_format);
         break;
 
     default:

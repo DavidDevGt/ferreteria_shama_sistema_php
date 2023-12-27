@@ -12,14 +12,11 @@ require '../../functions/funciones_backend.php';
 $accion = $_POST['accion'] ?? $_GET['accion'] ?? '';
 
 switch ($accion) {
-    case 'agregar':
+    case 'login':
         break;
-    case 'editar':
+    case 'registrar':
         break;
-    case 'eliminar':
-        break;
-    case 'obtener':
-        break;
+
     default:
         echo json_encode(['error' => 'Acción no reconocida']);
         break;

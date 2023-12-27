@@ -5,19 +5,23 @@ include './includes/header.php';
 
 <style>
     body {
-        background-color: #f5f5f1;
+        background-color: #dadada;
     }
 </style>
 
-<!-- Contenedor de la app -->
-<div class="container-fluid">
-    <?php
-    require './routes/router.php';
-    ?>
-</div>
+<body>
 
-<!-- Fin Contenido -->
-<script></script>
+    <!-- Contenedor de la app -->
+    <div class="container-fluid">
+        <?php
+        require './routes/router.php';
+        ?>
+    </div>
+
+    <!-- Fin Contenido -->
+    <script></script>
+
+</body>
 
 <?php
 // Inclusión del pie de página

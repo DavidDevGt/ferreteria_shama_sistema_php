@@ -145,7 +145,8 @@ function dbUpdate($table, $data, $condition)
  * @param array $params Los parámetros para reemplazar en la consulta.
  * @return mysqli_stmt|false El objeto de la declaración o false en caso de error.
  */
-function dbQueryPreparada($query, $params = []) {
+function dbQueryPreparada($query, $params = [])
+{
     global $conexion;
 
     $stmt = $conexion->prepare($query);
@@ -172,4 +173,41 @@ function dbQueryPreparada($query, $params = []) {
 
     $stmt->execute();
     return $stmt;
+}
+
+/**
+ * Pagina los resultados de una consulta SQL.
+ *
+ * @param string $query La consulta SQL a paginar.
+ * @param int $pagina La página actual.
+ * @param int $resultadosPorPagina La cantidad de resultados por página.
+ * @return array Resultados paginados.
+ */
+function paginarResultados($query, $pagina = 1, $resultadosPorPagina = 10)
+{
+    global $conexion;
+
+    // Calcula el offset y la cantidad de resultados
+    $offset = ($pagina - 1) * $resultadosPorPagina;
+    $queryLimit = $query . " LIMIT $offset, $resultadosPorPagina";
+
+    // Ejecuta la consulta con límite
+    $result = dbQuery($queryLimit);
+    $datos = dbFetchAll($result);
+
+    // Obtiene el total de registros
+    $resultTotal = dbQuery("SELECT COUNT(*) as total FROM ($query) as subquery");
+    $filaTotal = dbFetchAssoc($resultTotal);
+    $totalRegistros = $filaTotal['total'];
+
+    // Calcula el total de páginas
+    $totalPaginas = ceil($totalRegistros / $resultadosPorPagina);
+
+    // Retorna los resultados y la información de la paginación
+    return [
+        'datos' => $datos,
+        'pagina_actual' => $pagina,
+        'total_paginas' => $totalPaginas,
+        'total_registros' => $totalRegistros
+    ];
 }

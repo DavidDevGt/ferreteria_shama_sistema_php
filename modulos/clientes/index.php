@@ -9,7 +9,7 @@
     </div>
 
     <div class="table-responsive mt-3" id="tablaClientesActivos">
-        <table class="table table-bordered table-hover">
+        <table class="table table-bordered table-hover" id="tabla_clientes">
             <thead class="table-dark">
                 <tr>
                     <th>NIT</th>
@@ -25,8 +25,21 @@
             <tbody id="resultadoClientes">
                 <!-- Aquí se mostrarían los datos de los clientes -->
             </tbody>
+            <tfooter>
+                <tr>
+                    <td colspan="8" id="paginacionClientes">
+                        <!-- Aquí se mostraría la paginación -->
+                    </td>
+                </tr>
+            </tfooter>
         </table>
     </div>
 </div>
 
 <script src="modulos\clientes\script.js"></script>
+
+<style>
+    #tabla_clientes {
+        font-size: 12px;
+    }
+</style>
