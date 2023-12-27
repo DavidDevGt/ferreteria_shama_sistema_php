@@ -91,8 +91,9 @@
             </tbody>
             <tfooter>
                 <tr>
-                    <td colspan="8" id="paginacionClientes">
+                    <td colspan="8" class="text-end">
                         <!-- Aquí se mostraría la paginación -->
+                        <div  id="paginacionClientes" class="btn-group"></div>
                     </td>
                 </tr>
             </tfooter>

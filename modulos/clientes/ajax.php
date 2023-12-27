@@ -15,7 +15,7 @@ switch ($accion) {
     case 'buscar':
         $terminoBusqueda = dbEscape($_POST['busqueda'] ?? '');
         $pagina = $_POST['pagina'] ?? 1;
-        $resultados_por_pagina = 10;    
+        $resultados_por_pagina = 3;    
     
         // Modifica tu consulta para incluir paginación
         $query = "SELECT * FROM clientes WHERE nombre LIKE '%$terminoBusqueda%' OR apellido LIKE '%$terminoBusqueda%'";
