@@ -33,6 +33,9 @@ switch ($accion) {
 
     case 'eliminar':
         break;
+    
+    case 'obtener_por_id':
+        break;
 
     case 'obtener_todos':
         $pagina = $_POST['pagina'] ?? 1;

@@ -173,7 +173,7 @@ CREATE TABLE
         FOREIGN KEY (marca_id) REFERENCES marcas (id)
     );
 
--- Tabla de tipo de cliente (Reemplaza ENUM en clientes)
+-- Tabla de tipo de cliente
 CREATE TABLE
     tipo_cliente (
         id INT AUTO_INCREMENT PRIMARY KEY,
