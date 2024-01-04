@@ -1,6 +1,7 @@
 "use strict";
 
 guardarClienteBtn = $("#guardarClienteBtn");
+eliminarClienteBtn = $("#eliminarCliente");
 
 // Función para realizar una búsqueda de clientes al cargar la página para mostrar todos los clientes
 $(document).ready(function () {
@@ -133,7 +134,7 @@ function limpiarFormularioCliente() {
   $("#formCliente")[0].reset();
 }
 
-$("#guardarClienteBtn").click(function () {
+guardarClienteBtn.click(function () {
   const idCliente = $("#modalClientes").data("id-cliente");
   const cliente = $("#formCliente").serialize();
 
@@ -153,6 +154,27 @@ $("#guardarClienteBtn").click(function () {
     },
     error: function (error) {
       console.error("Error al guardar el cliente", error);
+    },
+  });
+});
+
+eliminarClienteBtn.click(function () {
+  const idCliente = $(this).closest("tr").data("id-cliente");
+
+  $.ajax({
+    url: "modulos/clientes/ajax.php",
+    type: "POST",
+    dataType: "json",
+    data: {
+      accion: "eliminar",
+      id_cliente: idCliente,
+    },
+    success: function (respuesta) {
+      // Código para manejar la respuesta
+      buscarClientes(""); // Actualizar la lista de clientes
+    },
+    error: function (error) {
+      console.error("Error al eliminar el cliente", error);
     },
   });
 });
