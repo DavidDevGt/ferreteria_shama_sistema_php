@@ -61,10 +61,10 @@ function mostrarResultados(clientes) {
               <td class="text-center">
                   <div class="btn-group">
                       <button class="btn btn-sm btn-success" id="editarCliente">
-                          <i class="las la-edit"></i> Editar
+                          <i class="las la-edit"></i>
                       </button>
                       <button class="btn btn-sm btn-danger" id="eliminarCliente">
-                          <i class="las la-trash-alt"></i> Eliminar
+                          <i class="las la-trash-alt"></i>
                       </button>
                   </div>
               </td>
