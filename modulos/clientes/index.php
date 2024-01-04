@@ -1,5 +1,3 @@
-
-
 <!-- Modal -->
 <div class="modal fade" id="modalClientes" tabindex="-1" aria-labelledby="modalClientesLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -93,16 +91,16 @@
                 <tr>
                     <td colspan="8" class="text-end">
                         <!-- Aquí se mostraría la paginación -->
-                        <div  id="paginacionClientes" class="btn-group"></div>
+                        <div id="paginacionClientes" class="btn-group"></div>
                     </td>
                 </tr>
             </tfooter>
         </table>
     </div>
-    <!-- Botón para abrir el modal -->
-<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#modalClientes">
-    Agregar Cliente
-</button>
+
+    <button type="button" class="btn btn-primary" id="agregarClienteBtn" data-bs-toggle="modal" data-bs-target="#modalClientes">
+        Agregar Cliente
+    </button>
 </div>
 
 <script src="modulos\clientes\script.js"></script>

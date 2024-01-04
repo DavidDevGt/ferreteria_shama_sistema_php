@@ -176,6 +176,35 @@ function dbQueryPreparada($query, $params = [])
 }
 
 /**
+ * Función para eliminar un registro de una tabla.
+ * 
+ * @param string $table Nombre de la tabla.
+ * @param string $condition Condición para determinar qué registro eliminar.
+ * @return bool Resultado de la operación (true si fue exitosa, false si hubo un error).
+ */
+function dbDelete($table, $condition)
+{
+    global $conexion;
+    $query = "DELETE FROM `$table` WHERE $condition";
+    return mysqli_query($conexion, $query);
+}
+
+/**
+ * Función para realizar un soft delete en un registro, marcándolo como inactivo.
+ * 
+ * @param string $table Nombre de la tabla.
+ * @param string $condition Condición para determinar qué registro actualizar.
+ * @return bool Resultado de la operación (true si fue exitosa, false si hubo un error).
+ */
+function dbSoftDelete($table, $condition)
+{
+    global $conexion;
+    $query = "UPDATE `$table` SET `active` = 0 WHERE $condition";
+    return mysqli_query($conexion, $query);
+}
+
+
+/**
  * Pagina los resultados de una consulta SQL.
  *
  * @param string $query La consulta SQL a paginar.
