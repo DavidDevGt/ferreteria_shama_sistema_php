@@ -1,12 +1,25 @@
 "use strict";
 
-guardarClienteBtn = $("#guardarClienteBtn");
-eliminarClienteBtn = $("#eliminarCliente");
+const guardarClienteBtn = $("#guardarClienteBtn");
+const eliminarClienteBtn = $("#eliminarCliente");
 
-// Función para realizar una búsqueda de clientes al cargar la página para mostrar todos los clientes
 $(document).ready(function () {
-  const termino = $("#busquedaCliente").val();
-  buscarClientes(termino);
+  buscarClientes("");
+
+  $("#agregarClienteBtn").click(function () {
+    limpiarFormularioCliente();
+    $("#modalClientes").modal("show");
+  });
+
+  $("#resultadoClientes").on("click", "#editarCliente", function () {
+    const idCliente = $(this).closest("tr").data("id-cliente");
+    cargarDatosCliente(idCliente);
+  });
+
+  $("#resultadoClientes").on("click", "#eliminarCliente", function () {
+    const idCliente = $(this).closest("tr").data("id-cliente");
+    confirmarEliminacion(idCliente);
+  });
 });
 
 // Función para realizar una búsqueda de clientes
@@ -158,9 +171,23 @@ guardarClienteBtn.click(function () {
   });
 });
 
-eliminarClienteBtn.click(function () {
-  const idCliente = $(this).closest("tr").data("id-cliente");
+function confirmarEliminacion(idCliente) {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: "¡No podrás revertir esto!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#3085d6",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Sí, elimínalo!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      eliminarCliente(idCliente);
+    }
+  });
+}
 
+function eliminarCliente(idCliente) {
   $.ajax({
     url: "modulos/clientes/ajax.php",
     type: "POST",
@@ -170,11 +197,19 @@ eliminarClienteBtn.click(function () {
       id_cliente: idCliente,
     },
     success: function (respuesta) {
-      // Código para manejar la respuesta
+      if (respuesta.success) {
+        Swal.fire("Eliminado!", "El cliente ha sido eliminado.", "success");
+      } else {
+        Swal.fire("Error!", "No se pudo eliminar el cliente.", "error");
+      }
       buscarClientes(""); // Actualizar la lista de clientes
     },
     error: function (error) {
-      console.error("Error al eliminar el cliente", error);
+      Swal.fire(
+        "Error!",
+        "Ha ocurrido un error al intentar eliminar el cliente.",
+        "error"
+      );
     },
   });
-});
+}
