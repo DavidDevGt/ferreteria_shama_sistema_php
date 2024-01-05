@@ -25,6 +25,7 @@
     <!-- Scripts JS -->
     <script src="functions\funcionesFrontend.js"></script>
 </head>
+<body>
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-warning mb-2">
