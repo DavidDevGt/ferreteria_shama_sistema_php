@@ -27,6 +27,10 @@ $router->map('GET', '/productos', function () {
     require __DIR__ . '/../modulos/productos/index.php';
 });
 
+$router->map('GET', '/facturacion', function () {
+    require __DIR__ . '/../modulos/facturacion/index.php';
+});
+
 $router->map('GET', '/login', function () {
     require __DIR__ . '/../modulos/autenticacion/login.php';
 });
