@@ -152,6 +152,7 @@ CREATE TABLE
         fecha_factura DATETIME NOT NULL,
         monto_total DECIMAL(10, 2) NOT NULL,
         saldo_pendiente DECIMAL(10, 2) NOT NULL,
+        metodo_pago VARCHAR(255),
         active TINYINT (1) DEFAULT 1,
         fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -219,7 +220,8 @@ CREATE TABLE
         municipio_id INT, -- Referencia a la tabla de municipios
         departamento_id INT, -- Referencia a la tabla de departamentos
         pais VARCHAR(255) DEFAULT 'Guatemala',
-        telefono VARCHAR(20),
+        telefono VARCHAR(25),
+        telefono2 VARCHAR(25),
         email VARCHAR(255) UNIQUE,
         tipo_cliente_id INT NOT NULL,
         fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -266,14 +268,6 @@ CREATE TABLE
         FOREIGN KEY (rol_id) REFERENCES roles (id)
     );
 
--- Tabla de estado de pedidos (Reemplaza ENUM en pedido)
-CREATE TABLE
-    estado_pedido (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        estado VARCHAR(255) NOT NULL UNIQUE,
-        descripcion TEXT
-    );
-
 -- Tabla de métodos de envío
 CREATE TABLE
     metodo_envio (
@@ -285,24 +279,30 @@ CREATE TABLE
         observaciones TEXT -- Cualquier nota o detalle adicional sobre el método de envío
     );
 
--- Modificación de la tabla de pedidos para usar estado_pedido_id en lugar de ENUM
 CREATE TABLE
     pedido (
         id INT AUTO_INCREMENT PRIMARY KEY,
         cliente_id INT NOT NULL,
         sucursal_id INT,
+        direccion_facturacion TEXT NOT NULL,
+        direccion_entrega TEXT NOT NULL,
         fecha_pedido DATETIME NOT NULL,
         fecha_estimada_entrega DATETIME,
-        estado_pedido_id INT NOT NULL,
         total DECIMAL(10, 2) NOT NULL,
-        metodo_envio_id INT, -- Asumiendo que existe una tabla para métodos de envío
+        status INT NOT NULL DEFAULT 1, -- 1 = Creado, 2 = Pendiente de Autorizar, 3 = Autorizado, 4 = Sacando el Pedido, 5 = Revisando el Pedido, 6 = Facturado, 7 = Otros Pedidos, 0 = Rechazado
+        metodo_envio_id INT,
         observaciones_pedido TEXT,
+        usuario_pedido_creado INT;
+        fecha_pedido_creado DATETIME,
+        usuario_pedido_autorizado INT,
+        fecha_pedido_autorizado DATETIME,
+        usuario_pedido_facturado INT,
+        fecha_pedido_facturado DATETIME,
         active TINYINT (1) DEFAULT 1,
         fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
         FOREIGN KEY (cliente_id) REFERENCES clientes (id),
         FOREIGN KEY (sucursal_id) REFERENCES sucursales (id),
-        FOREIGN KEY (estado_pedido_id) REFERENCES estado_pedido (id),
         FOREIGN KEY (metodo_envio_id) REFERENCES metodo_envio (id)
     );
 
@@ -328,11 +328,16 @@ CREATE TABLE
         serie VARCHAR(10),
         numero_factura INT,
         autorizacion VARCHAR(255),
+        nit VARCHAR(45),
+        es_nit INT NOT NULL,
+        nombre VARCHAR(200),
         total DECIMAL(10, 2) NOT NULL,
-        FOREIGN KEY (cliente_id) REFERENCES clientes (id),
-        FOREIGN KEY (pedido_id) REFERENCES pedido (id),
+        status INT NOT NULL DEFAULT 1, -- 1 = Creada, 2 = Firmada FEL, 3 = Abonada, 4 = Pagada, 5 = Anulada
+        active TINYINT (1) DEFAULT 1,
         fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-        fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+        fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (cliente_id) REFERENCES clientes (id),
+        FOREIGN KEY (pedido_id) REFERENCES pedido (id)
     );
 
 -- Detalles de facturas
@@ -486,6 +491,7 @@ CREATE TABLE
         precio_compra_anterior DECIMAL(10, 2),
         precio_venta_anterior DECIMAL(10, 2),
         fecha_cambio DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+        active TINYINT (1) DEFAULT 1,
         FOREIGN KEY (producto_id) REFERENCES productos (id)
     );
 
@@ -512,6 +518,7 @@ CREATE TABLE
         tiempo_estimado_envio VARCHAR(255),
         costo DECIMAL(10, 2),
         observaciones TEXT,
+        active TINYINT (1) DEFAULT 1,
         fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
@@ -545,6 +552,7 @@ CREATE TABLE
         columna VARCHAR(50),
         FOREIGN KEY (producto_id) REFERENCES productos (id),
         FOREIGN KEY (almacen_id) REFERENCES almacenes (id),
+        active TINYINT (1) DEFAULT 1,
         fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
         fecha_modificacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
     );
