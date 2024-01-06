@@ -1,22 +1,24 @@
 <!-- Paso 1: Encabezados -->
 <div class="p-4 m-4 bg-white rounded">
     <h2>Información del Encabezado</h2>
-    <form id="headerInfoForm" class="row">
-        <div class="mb-3 col-3">
-            <label for="nitInput" class="form-label">NIT</label>
-            <input type="text" class="form-control" id="nitInput" placeholder="Ingrese NIT">
-        </div>
-        <div class="mb-3 col-3">
-            <label for="nameInput" class="form-label">Nombre</label>
-            <input type="text" class="form-control" id="nameInput" placeholder="Nombre del Emisor/Receptor">
-        </div>
-        <div class="mb-3 col-3">
-            <label for="nameInput" class="form-label">Dirección Facturación</label>
-            <input type="text" class="form-control" id="nameInput" placeholder="Nombre del Emisor/Receptor">
-        </div>
-        <div class="mb-3 col-3">
-            <label for="nameInput" class="form-label">Dirección Entrega</label>
-            <input type="text" class="form-control" id="nameInput" placeholder="Nombre del Emisor/Receptor">
+    <form id="headerInfoForm">
+        <div class="row">
+            <div class="mb-3 col-3">
+                <label for="emisorReceptorInput" class="form-label">Nombre</label>
+                <input type="text" class="form-control" id="emisorReceptorInput" placeholder="Nombre del Emisor/Receptor">
+            </div>
+            <div class="mb-3 col-3">
+                <label for="nitInput" class="form-label">NIT</label>
+                <input type="text" class="form-control" id="nitInput" placeholder="Ingrese NIT">
+            </div>
+            <div class="mb-3 col-3">
+                <label for="direccionEntregaInput" class="form-label">Dirección de Entrega</label>
+                <input type="text" class="form-control" id="direccionEntregaInput" placeholder="Dirección de Entrega">
+            </div>
+            <div class="mb-3 col-3">
+                <label for="direccionFacturacionInput" class="form-label">Dirección de Facturación</label>
+                <input type="text" class="form-control" id="direccionFacturacionInput" placeholder="Dirección de Facturación">
+            </div>
         </div>
         <!-- Otros campos según sea necesario -->
         <button type="button" class="btn btn-primary" onclick="goToInvoiceDetails()">Siguiente</button>
@@ -40,7 +42,7 @@
             <!-- Las filas se agregarán dinámicamente aquí -->
         </tbody>
     </table>
-    <button type="button" class="btn btn-primary" onclick="addItem()">Agregar Ítem</button>
+    <button type="button" class="btn btn-primary" onclick="addItem()">Agregar Item</button>
     <button type="button" class="btn btn-success" onclick="goToElectronicSignature()">Siguiente</button>
 </div>
 
