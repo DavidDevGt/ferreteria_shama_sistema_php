@@ -1,3 +1,10 @@
+<?php 
+//* VER ERRORES
+error_reporting(E_ALL);
+ini_set('display_errors', '1');
+
+?>
+
 <style>
     /* Agrega estilos personalizados aquí */
     .container {
