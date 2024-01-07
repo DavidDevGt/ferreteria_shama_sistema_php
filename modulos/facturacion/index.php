@@ -4,7 +4,7 @@
     <form id="headerInfoForm">
         <div class="row">
             <div class="mb-3 col-3">
-                <label for="emisorReceptorInput" class="form-label">Nombre</label>
+                <label for="emisorReceptorInput" class="form-label">Nombres</label>
                 <input type="text" class="form-control" id="emisorReceptorInput" placeholder="Nombre del Emisor/Receptor">
             </div>
             <div class="mb-3 col-3">
@@ -20,6 +20,19 @@
                 <input type="text" class="form-control" id="direccionFacturacionInput" placeholder="Dirección de Facturación">
             </div>
         </div>
+        <div class="row">
+            <div class="mb-3 col-3">
+                <label for="fechaInput" class="form-label">Fecha</label>
+                <input type="date" class="form-control" id="fechaInput" placeholder="Fecha">
+            </div>
+            <div class="mb-3 col-3">
+                <label for="numeroFacturaInput" class="form-label">Número de Factura</label>
+                <input type="text" class="form-control" id="numeroFacturaInput" placeholder="Número de Factura">
+            </div>
+            <div class="mb-3 col-3"></div>
+            <div class="mb-3 col-3"></div>
+
+        </div>
         <!-- Otros campos según sea necesario -->
         <button type="button" class="btn btn-primary" onclick="goToInvoiceDetails()">Siguiente</button>
     </form>
@@ -31,6 +44,7 @@
     <table class="table table-bordered">
         <thead class="table-dark">
             <tr>
+                <th scope="col">Código</th>
                 <th scope="col">Producto/Servicio</th>
                 <th scope="col">Cantidad</th>
                 <th scope="col">Precio</th>
@@ -49,13 +63,5 @@
 <!-- Paso 3: Firma Electrónica -->
 <div class="p-4 m-4 bg-white rounded">
     <h2>Firma Electrónica</h2>
-    <p>Resumen de la factura:</p>
-    <div id="invoiceSummary">
-        <!-- Resumen de la factura se generará aquí -->
-    </div>
-    <div class="mb-3">
-        <label for="signaturePad" class="form-label">Firma Aquí</label>
-        <canvas id="signaturePad" class="border"></canvas>
-    </div>
-    <button type="button" class="btn btn-danger" onclick="finalizeInvoice()">Finalizar</button>
+    <button type="button" class="btn btn-danger" onclick="firmarInvoice()">Firmar FEL</button>
 </div>

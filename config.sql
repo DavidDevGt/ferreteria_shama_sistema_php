@@ -332,6 +332,7 @@ CREATE TABLE
         es_nit INT NOT NULL,
         nombre VARCHAR(200),
         total DECIMAL(10, 2) NOT NULL,
+        observaciones TEXT,
         status INT NOT NULL DEFAULT 1, -- 1 = Creada, 2 = Firmada FEL, 3 = Abonada, 4 = Pagada, 5 = Anulada
         active TINYINT (1) DEFAULT 1,
         fecha_creacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
