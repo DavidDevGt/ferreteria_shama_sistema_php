@@ -3,6 +3,7 @@ require __DIR__ . '/../resources/altorouter/vendor/autoload.php';
 
 $router = new AltoRouter();
 
+// Configuración de la base de la URL (Comentar en producción)
 //$router->setBasePath('/fshama-erp');
 
 // Rutas
