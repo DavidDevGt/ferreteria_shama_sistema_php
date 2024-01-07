@@ -292,7 +292,7 @@ CREATE TABLE
         status INT NOT NULL DEFAULT 1, -- 1 = Creado, 2 = Pendiente de Autorizar, 3 = Autorizado, 4 = Sacando el Pedido, 5 = Revisando el Pedido, 6 = Facturado, 7 = Otros Pedidos, 0 = Rechazado
         metodo_envio_id INT,
         observaciones_pedido TEXT,
-        usuario_pedido_creado INT;
+        usuario_pedido_creado INT,
         fecha_pedido_creado DATETIME,
         usuario_pedido_autorizado INT,
         fecha_pedido_autorizado DATETIME,
@@ -603,20 +603,3 @@ FROM
 GROUP BY
     pr.nombre,
     fp.id;
-
--- Ver pedidos pendientes
-CREATE VIEW
-    vista_pedidos_pendientes AS
-SELECT
-    pe.id AS pedido_id,
-    c.nombre AS nombre_cliente,
-    c.apellido AS apellido_cliente,
-    pe.fecha_pedido,
-    ep.estado
-FROM
-    pedido pe
-    JOIN clientes c ON pe.cliente_id = c.id
-    JOIN estado_pedido ep ON pe.estado_pedido_id = ep.id
-WHERE
-    ep.estado = 'Pendiente';
-
